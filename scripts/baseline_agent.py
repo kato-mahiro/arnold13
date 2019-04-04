@@ -1,9 +1,10 @@
 #coding:utf-8
 
 class BaselineAgent:
-    def __init__(self, neurons, initial_position):
+    def __init__(self, neurons, x,y):
         self.__neurons = neurons
-        self.position = initial_position
+        self.x_coordinate = x
+        self.y_coordinate = y
         self.total_reword = 0
     def get_action(self,field_of_view):
         output_list = self.__neurons.get_output(field_of_view)
