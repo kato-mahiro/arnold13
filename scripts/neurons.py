@@ -8,8 +8,9 @@ OUTPUT_NUMBER = 4
 
 class Neurons:
     def __init__(self):
-        self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -4.0
-        self.weights_ho = 4.0 * np.random.random(( HIDDEN_LAYER_NUMBER, OUTPUT_NUMBER)) -4.0
+        #create randomized np.array. range is (-2.0 ~ +2.0).
+        self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -2.0
+        self.weights_ho = 4.0 * np.random.random(( HIDDEN_LAYER_NUMBER, OUTPUT_NUMBER)) -2.0
     def set_weights(weights_ih,weights_ho):
         self.weights_ih = weights_ih
         self.weights_ho = weights_ho
