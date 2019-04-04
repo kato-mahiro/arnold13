@@ -3,7 +3,8 @@ import random
 
 FIELD_RANGE = 20
 VIEW_RANGE = 7
-PREY_NUM = 100
+PREY_NUM = 40
+object_num = 0
 
 class Prey:
     def __init__(self,x,y,direction):
@@ -27,6 +28,7 @@ class Field:
             return n
 
     def prey_arrangement(self):
+        global object_num
         " arrange a prey object so it doesn't adjacent to other objects."
         while(True):
             collision = False
@@ -58,10 +60,14 @@ class Field:
                 prey.adjacent_cells[i][1] = self.troidal_process(prey.adjacent_cells[i][1])
                 print(prey.adjacent_cells[i])
                 if self.grid[prey.adjacent_cells[i][0]][prey.adjacent_cells[i][1]] == '#':
+                    collision = True
                     print("衝突した")
-                    return
+                    break
+            if collision == True:
+                continue
             else:
                 print("オブジェクトを追加する")
+                object_num += 1
                 self.grid[prey.x][prey.y] = '#'
                 if prey.direction == 'vertical':
                     self.grid[prey.x][prey.y+1] = '#'
@@ -76,3 +82,4 @@ if __name__=='__main__':
         field.prey_arrangement()
     for i in range(FIELD_RANGE):
         print( ' '.join(field.grid[i]))
+    print(object_num)
