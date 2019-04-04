@@ -68,8 +68,16 @@ class Field:
                     self.grid[prey.x][prey.y+1] = '#'
                 elif prey.direction == 'horizontal':
                     self.grid[prey.x+1][prey.y] = '#'
-                return 
-    def 
+                return
+
+    def get_field_of_view(self, x_coordinate, y_coordinate):
+        field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
+        for y in range(VIEW_RANGE):
+            for x in range(VIEW_RANGE):
+                adjusted_x = self.troidal_process(x - VIEW_RANGE//2)
+                adjusted_y = self.troidal_process(y - VIEW_RANGE//2)
+                field_of_view[x][y] = self.grid[adjusted_x][adjusted_y]
+        return field_of_view
 
 if __name__=='__main__':
     field = Field()
@@ -77,4 +85,8 @@ if __name__=='__main__':
         field.prey_arrangement()
     for i in range(FIELD_RANGE):
         print( ' '.join(field.grid[i]))
+    print("---")
+    f = field.get_field_of_view(0,0)
+    for i in range(VIEW_RANGE):
+        print( ' '.join(f[i]))
     print(object_num)
