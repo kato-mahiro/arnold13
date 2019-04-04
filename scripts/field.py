@@ -1,10 +1,10 @@
 #coding:utf-8
 import random
+import pprint
 
 FIELD_RANGE = 20
 VIEW_RANGE = 7
 PREY_NUM = 40
-object_num = 0
 
 class Prey:
     def __init__(self,x,y,direction):
@@ -16,6 +16,7 @@ class Prey:
 class Field:
     def __init__(self):
         self.grid = [ ['_' for i in range(FIELD_RANGE)] for j in range(FIELD_RANGE)]
+        #note: grid[y][x]  --- x: horizontal, y: vertical. upper left corner is coordinate origin(0,0)
         self.preys = []
 
     def troidal_process(self,n):
@@ -28,7 +29,6 @@ class Field:
             return n
 
     def prey_arrangement(self):
-        global object_num
         " arrange a prey object so it doesn't adjacent to other objects."
         while(True):
             collision = False
@@ -62,7 +62,6 @@ class Field:
             if collision == True:
                 continue
             else:
-                object_num += 1
                 self.grid[prey.x][prey.y] = '#'
                 if prey.direction == 'vertical':
                     self.grid[prey.x][prey.y+1] = '#'
@@ -74,19 +73,24 @@ class Field:
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         for y in range(VIEW_RANGE):
             for x in range(VIEW_RANGE):
-                adjusted_x = self.troidal_process(x - VIEW_RANGE//2)
-                adjusted_y = self.troidal_process(y - VIEW_RANGE//2)
-                field_of_view[x][y] = self.grid[adjusted_x][adjusted_y]
+                adjusted_x = self.troidal_process(x_coordinate+x - VIEW_RANGE//2)
+                adjusted_y = self.troidal_process(y_coordinate+y - VIEW_RANGE//2)
+                field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
         return field_of_view
 
 if __name__=='__main__':
     field = Field()
     for i in range(PREY_NUM):
         field.prey_arrangement()
-    for i in range(FIELD_RANGE):
-        print( ' '.join(field.grid[i]))
-    print("---")
-    f = field.get_field_of_view(0,0)
-    for i in range(VIEW_RANGE):
-        print( ' '.join(f[i]))
-    print(object_num)
+
+    while(True):
+        x = int(input())
+        y = int(input())
+        field.grid[y][x] = 'A'
+        for i in range(FIELD_RANGE):
+            print(' '.join(field.grid[i]))
+        print("---")
+        f = field.get_field_of_view(x,y)
+        for i in range(VIEW_RANGE):
+            print(' '.join(f[i]))
+        print("---")
