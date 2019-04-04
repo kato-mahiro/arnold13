@@ -20,7 +20,7 @@ class Field:
         self.preys = []
 
     def troidal_process(self,n):
-        "this correct the coordinates to avoid out of range."
+        "this corrects the coordinates to avoid out of range."
         if n < 0:
             return FIELD_RANGE + n
         elif n >= FIELD_RANGE:
@@ -73,8 +73,8 @@ class Field:
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         for y in range(VIEW_RANGE):
             for x in range(VIEW_RANGE):
-                adjusted_x = self.troidal_process(x_coordinate+x - VIEW_RANGE//2)
-                adjusted_y = self.troidal_process(y_coordinate+y - VIEW_RANGE//2)
+                adjusted_x = self.troidal_process(x_coordinate + x - VIEW_RANGE//2)
+                adjusted_y = self.troidal_process(y_coordinate + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
         return field_of_view
 
