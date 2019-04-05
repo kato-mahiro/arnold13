@@ -96,6 +96,37 @@ class Field:
                 input_vector[i] = 1.0
         return input_vector
 
+    def position_update(self, action_no, agent):
+        if action_no == 0 or action_no == 1: #step_forward,jump_forward
+            if agent.direction == 'up':
+                agent.y_coordinate -= (1 + action_no)
+            elif agent.direction == 'right':
+                agent.x_coordinate += (1 + action_no)
+            elif agent.direction == 'down':
+                agent.y_coordinate += (1 + action_no)
+            elif agent.direction == 'left':
+                agent.x_coordinate -= (1 + action_no)
+        if action_no == 2: #turn_right
+            if agent.direction == 'up':
+                agent.direction = 'right'
+            elif agent.direction == 'right':
+                agent.direction = 'down'
+            elif agent.direction == 'down':
+                agent.direction = 'left'
+            elif agent.direction == 'left':
+                agent.direction = 'up'
+        if action_no == 3: #turn_left
+            if agent.direction == 'up':
+                agent.direction = 'left'
+            elif agent.direction == 'right':
+                agent.direction = 'up'
+            elif agent.direction == 'down':
+                agent.direction = 'right'
+            elif agent.direction == 'left':
+                agent.direction = 'down'
+        agent.x_coordinate = self.troidal_process(agent.x_coordinate)
+        agent.y_coordinate = self.troidal_process(agent.y_coordinate)
+
 if __name__=='__main__':
     field = Field()
     for i in range(PREY_NUM):
