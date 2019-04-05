@@ -78,15 +78,14 @@ class Field:
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
         return field_of_view
 
-    def get_input_vector(field_of_view):
-        for i in range(7):
-            print(' '.join(field_of_view[i]))
+    def give_input_vector(self, field_of_view):
         input_vector=[]
+        "cut edge information"
         field_of_view[0] = field_of_view[0][2:-2]
         field_of_view[1] = field_of_view[1][1:-1]
         field_of_view[-2] = field_of_view[-2][1:-1]
         field_of_view[-1] = field_of_view[-1][2:-2]
-        for i in range(7):
+        for i in range(VIEW_RANGE):
             input_vector += field_of_view[i]
         input_vector += [1.0] #(bias neuron)
         input_vector += [random.choice([0.0,1.0])]
@@ -95,6 +94,7 @@ class Field:
                 input_vector[i] = 0.0
             elif input_vector[i] == '#':
                 input_vector[i] = 1.0
+        return input_vector
 
 if __name__=='__main__':
     field = Field()
