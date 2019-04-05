@@ -1,8 +1,9 @@
 #coding:utf-8
+from neurons import Neurons
 
 class BaselineAgent:
-    def __init__(self, neurons, x,y):
-        self.__neurons = neurons
+    def __init__(self,x,y):
+        self.__neurons = Neurons()
         self.x_coordinate = x
         self.y_coordinate = y
         self.total_reword = 0
