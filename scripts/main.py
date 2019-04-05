@@ -20,8 +20,8 @@ def main():
     input_vector = field.give_input_vector(field_of_view)
     print(input_vector)
     print("===")
-    output = agent.get_action(input_vector)
-    print(output)
+    action_no = agent.get_action(input_vector)
+    print(action_no)
 
 if __name__=='__main__':
     main()
