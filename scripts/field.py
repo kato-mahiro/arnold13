@@ -69,7 +69,7 @@ class Field:
                     self.grid[prey.x+1][prey.y] = '#'
                 return
 
-    def get_field_of_view(self, x_coordinate, y_coordinate):
+    def give_field_of_view(self, x_coordinate, y_coordinate):
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         for y in range(VIEW_RANGE):
             for x in range(VIEW_RANGE):
@@ -90,7 +90,7 @@ if __name__=='__main__':
         for i in range(FIELD_RANGE):
             print(' '.join(field.grid[i]))
         print("---")
-        f = field.get_field_of_view(x,y)
+        f = field.give_field_of_view(x,y)
         for i in range(VIEW_RANGE):
             print(' '.join(f[i]))
         print("---")
