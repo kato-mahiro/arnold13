@@ -7,6 +7,6 @@ class BaselineAgent:
         self.x_coordinate = x
         self.y_coordinate = y
         self.total_reword = 0
-    def get_action(self,field_of_view):
-        output_list = self.__neurons.get_output(field_of_view)
+    def get_action(self,input_vector):
+        output_list = self.__neurons.get_output(input_vector)
         return output_list.index(max(output_list))

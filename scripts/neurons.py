@@ -2,8 +2,8 @@
 import numpy as np
 import math
 
-INPUT_NUMBER = 10
-HIDDEN_LAYER_NUMBER = 10
+INPUT_NUMBER = 39
+HIDDEN_LAYER_NUMBER = 16
 OUTPUT_NUMBER = 4
 
 class Neurons:
