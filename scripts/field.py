@@ -147,6 +147,9 @@ class Field:
                     if (agent.direction == 'up' or agent.direction == 'down') and \
                                                 self.preys[n].direction == 'vertical' :
                         agent.total_reword += 1.0
+                    elif (agent.direction == 'right' or agent.direction == 'left') and \
+                                                self.preys[n].direction == 'horizontal' :
+                        agent.total_reword += 1.0
                     else:
                         agent.total_reword -= 1.0
                     self.del_prey(n)
