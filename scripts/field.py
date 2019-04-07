@@ -10,6 +10,8 @@ class Prey:
     def __init__(self,x,y,direction):
         self.x = x
         self.y = y
+        self.x2 = None
+        self.y2 = None
         self.direction = direction
         self.adjacent_cells = [None for i in range(8)]
 
@@ -64,13 +66,20 @@ class Field:
             else:
                 self.grid[prey.y][prey.x] = '#'
                 if prey.direction == 'vertical':
-                    self.grid[prey.y+1][prey.x] = '#'
+                    prey.x2 = prey.x
+                    prey.y2 = prey.y +1
+                    self.grid[prey.y2][prey.x] = '#'
                 elif prey.direction == 'horizontal':
-                    self.grid[prey.y][prey.x+1] = '#'
+                    prey.x2 = prey.x +1
+                    prey.y2 = prey.y
+                    self.grid[prey.y2][prey.x2] = '#'
                 self.preys.append(prey)
                 return
 
-    #def del_prey(self,prey_no):
+    def del_prey(self,prey_no):
+        self.grid[self.preys[prey_no].y][self.preys[prey_no].x] = '_'
+        self.grid[self.preys[prey_no].y2][self.preys[prey_no].x2] = '_'
+        del(self.preys[prey_no])
 
     def give_input_vector(self, x_coordinate, y_coordinate):
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
@@ -132,9 +141,19 @@ class Field:
 
 if __name__=='__main__':
     field = Field()
-    for i in range(PREY_NUM):
+    for i in range(10):
         field.add_prey()
+    for i in range(FIELD_RANGE):
+        print(' '.join(field.grid[i]))
+    print("---")
 
+    for j in range(10):
+        field.del_prey(0)
+        for i in range(FIELD_RANGE):
+            print(' '.join(field.grid[i]))
+        print("---")
+
+    """
     while(True):
         x = int(input())
         y = int(input())
@@ -146,3 +165,4 @@ if __name__=='__main__':
         for i in range(VIEW_RANGE):
             print(' '.join(f[i]))
         print("---")
+    """
