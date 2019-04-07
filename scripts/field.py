@@ -89,6 +89,7 @@ class Field:
                 adjusted_x = self.troidal_process(x_coordinate + x - VIEW_RANGE//2)
                 adjusted_y = self.troidal_process(y_coordinate + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
+        print("===")
         for i in range(VIEW_RANGE):
             print(' '.join(field_of_view[i]))
         "cut edge information"
@@ -108,6 +109,8 @@ class Field:
         return input_vector
 
     def position_update(self, action_no, agent):
+        action_no = int(action_no)
+        print(agent.x_coordinate,agent.y_coordinate,agent.direction)
         if action_no == 0 or action_no == 1: #step_forward,jump_forward
             if agent.direction == 'up':
                 agent.y_coordinate -= (1 + action_no)
@@ -137,7 +140,20 @@ class Field:
                 agent.direction = 'down'
         agent.x_coordinate = self.troidal_process(agent.x_coordinate)
         agent.y_coordinate = self.troidal_process(agent.y_coordinate)
+        print(agent.x_coordinate,agent.y_coordinate)
         #if self.grid[agent.y_coordinate][agent.x_coordinate] == '#':
+        if action_no == 0 or action_no == 1:
+            for n in range(len(self.preys)):
+                if (self.preys[n].x == agent.x_coordinate and self.preys[n].y == agent.y_coordinate)\
+                    or\
+                   (self.preys[n].x2 == agent.x_coordinate and self.preys[n].y2 == agent.y_coordinate):
+                    if (agent.direction == 'up' or agent.direction == 'down') and \
+                                                self.preys[n].direction == 'vertical' :
+                        agent.total_reword += 1.0
+                    else:
+                        agent.total_reword -= 1.0
+                    self.del_prey(n)
+                    self.add_prey()
 
 if __name__=='__main__':
     field = Field()
