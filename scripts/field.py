@@ -28,7 +28,7 @@ class Field:
         else:
             return n
 
-    def add_prey(self)
+    def add_prey(self):
         " add a prey object so it doesn't adjacent to other objects."
         while(True):
             collision = False
@@ -56,18 +56,21 @@ class Field:
             for i in range(8):
                 prey.adjacent_cells[i][0] = self.troidal_process(prey.adjacent_cells[i][0])
                 prey.adjacent_cells[i][1] = self.troidal_process(prey.adjacent_cells[i][1])
-                if self.grid[prey.adjacent_cells[i][0]][prey.adjacent_cells[i][1]] == '#':
+                if self.grid[prey.adjacent_cells[i][1]][prey.adjacent_cells[i][0]] == '#':
                     collision = True
                     break
             if collision == True:
                 continue
             else:
-                self.grid[prey.x][prey.y] = '#'
+                self.grid[prey.y][prey.x] = '#'
                 if prey.direction == 'vertical':
-                    self.grid[prey.x][prey.y+1] = '#'
+                    self.grid[prey.y+1][prey.x] = '#'
                 elif prey.direction == 'horizontal':
-                    self.grid[prey.x+1][prey.y] = '#'
+                    self.grid[prey.y][prey.x+1] = '#'
+                self.preys.append(prey)
                 return
+
+    #def del_prey(self,prey_no):
 
     def give_input_vector(self, x_coordinate, y_coordinate):
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
@@ -125,8 +128,7 @@ class Field:
                 agent.direction = 'down'
         agent.x_coordinate = self.troidal_process(agent.x_coordinate)
         agent.y_coordinate = self.troidal_process(agent.y_coordinate)
-        if self.grid[agent.y_coordinate][agent.x_coordinate] == '#':
-
+        #if self.grid[agent.y_coordinate][agent.x_coordinate] == '#':
 
 if __name__=='__main__':
     field = Field()
