@@ -16,7 +16,7 @@ class Prey:
 class Field:
     def __init__(self):
         self.grid = [ ['_' for i in range(FIELD_RANGE)] for j in range(FIELD_RANGE)]
-        #note: grid[y][x]  --- x: horizontal, y: vertical. upper left corner is coordinate origin(0,0)
+        "note: grid[y][x]  --- x: horizontal, y: vertical. upper left corner is coordinate origin(0,0)"
         self.preys = []
 
     def troidal_process(self,n):
@@ -29,7 +29,7 @@ class Field:
             return n
 
     def prey_arrangement(self):
-        " arrange a prey object so it doesn't adjacent to other objects."
+        " add a prey object so it doesn't adjacent to other objects."
         while(True):
             collision = False
             prey = Prey(random.randint(0, FIELD_RANGE-2), random.randint(0, FIELD_RANGE-2),\
