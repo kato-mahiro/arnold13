@@ -110,7 +110,6 @@ class Field:
 
     def position_update(self, action_no, agent):
         action_no = int(action_no)
-        print(agent.x_coordinate,agent.y_coordinate,agent.direction)
         if action_no == 0 or action_no == 1: #step_forward,jump_forward
             if agent.direction == 'up':
                 agent.y_coordinate -= (1 + action_no)
@@ -140,8 +139,6 @@ class Field:
                 agent.direction = 'down'
         agent.x_coordinate = self.troidal_process(agent.x_coordinate)
         agent.y_coordinate = self.troidal_process(agent.y_coordinate)
-        print(agent.x_coordinate,agent.y_coordinate)
-        #if self.grid[agent.y_coordinate][agent.x_coordinate] == '#':
         if action_no == 0 or action_no == 1:
             for n in range(len(self.preys)):
                 if (self.preys[n].x == agent.x_coordinate and self.preys[n].y == agent.y_coordinate)\
@@ -154,6 +151,7 @@ class Field:
                         agent.total_reword -= 1.0
                     self.del_prey(n)
                     self.add_prey()
+                    return
 
 if __name__=='__main__':
     field = Field()
