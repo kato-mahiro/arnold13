@@ -28,7 +28,7 @@ class Field:
         else:
             return n
 
-    def prey_arrangement(self):
+    def add_prey(self)
         " add a prey object so it doesn't adjacent to other objects."
         while(True):
             collision = False
@@ -125,11 +125,13 @@ class Field:
                 agent.direction = 'down'
         agent.x_coordinate = self.troidal_process(agent.x_coordinate)
         agent.y_coordinate = self.troidal_process(agent.y_coordinate)
+        if self.grid[agent.y_coordinate][agent.x_coordinate] == '#':
+
 
 if __name__=='__main__':
     field = Field()
     for i in range(PREY_NUM):
-        field.prey_arrangement()
+        field.add_prey()
 
     while(True):
         x = int(input())

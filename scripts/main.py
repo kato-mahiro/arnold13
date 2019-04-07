@@ -8,20 +8,13 @@ PREY_NUM = 40
 def main():
     field = Field()
     for i in range(PREY_NUM):
-        field.prey_arrangement()
-    for i in range(len(field.grid[0])):
-        print(' '.join(field.grid[i]))
-    print("===")
+        field.add_prey()
     agent = BaselineAgent(10,10)
-    field_of_view = field.give_field_of_view(agent.x_coordinate, agent.y_coordinate)
-    for i in range(len(field_of_view[0])):
-        print(' '.join(field_of_view[i]))
-    print("===")
-    input_vector = field.give_input_vector(field_of_view)
+
+    input_vector = field.give_input_vector(agent.x_coordinate, agent.y_coordinate)
     print(input_vector)
-    print("===")
     action_no = agent.get_action(input_vector)
-    print(action_no)
+    field.position_update(action_no,agent)
 
 if __name__=='__main__':
     main()
