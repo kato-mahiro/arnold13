@@ -89,9 +89,7 @@ class Field:
                 adjusted_x = self.troidal_process(x_coordinate + x - VIEW_RANGE//2)
                 adjusted_y = self.troidal_process(y_coordinate + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
-        print("===")
-        for i in range(VIEW_RANGE):
-            print(' '.join(field_of_view[i]))
+
         "cut edge information"
         field_of_view[0] = field_of_view[0][2:-2]
         field_of_view[1] = field_of_view[1][1:-1]
