@@ -1,10 +1,7 @@
 #coding:utf-8
 import numpy as np
 import math
-
-INPUT_NUMBER = 39
-HIDDEN_LAYER_NUMBER = 16
-OUTPUT_NUMBER = 4
+from const import *
 
 class Neurons:
     def __init__(self,weights_ih,weights_ho):
@@ -13,8 +10,8 @@ class Neurons:
             self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -2.0
             self.weights_ho = 4.0 * np.random.random(( HIDDEN_LAYER_NUMBER, OUTPUT_NUMBER)) -2.0
         else:
-            self.weights_ih = weights_ih
-            self.weights_ho = weights_ho
+            self.weights_ih = np.array(weights_ih)
+            self.weights_ho = np.array(weights_ho)
     def set_weights(weights_ih,weights_ho):
         self.weights_ih = weights_ih
         self.weights_ho = weights_ho
