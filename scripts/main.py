@@ -1,12 +1,15 @@
+import time
+start = time.time()
 import random
 import numpy as np
-
 from deap import base
 from deap import creator
 from deap import tools
+from trial import trial
 
-from create_array.py import attr_array()
-
+INPUT_NUMBER = 39
+HIDDEN_LAYER_NUMBER = 16
+OUTPUT_NUMBER = 4
 
 #creatorはbaseのクラスを継承して新たなクラスを作成する
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -14,16 +17,17 @@ creator.create("Individual", list, fitness=creator.FitnessMax)
 
 #toolboxは関数を作成する
 toolbox = base.Toolbox()
-#attr_array,(5*5の乱数行列をランダムに生成する関数)
-toolbox.register("attr_array",attr_array)
+#attr_uniform,
+toolbox.register("attr_uniform", random.uniform, -2, 2)
 #initRepeatはToolboxにあらかじめ用意されている関数
 #引数1: データを入れるコンテナの型、引数2: 個々のデータを生成する関数、引数3: コンテナのサイズ
-toolbox.register("individual", tools.initRepeat, creator.Individual , toolbox.attr_array , 1)
+toolbox.register("individual", tools.initRepeat, creator.Individual , toolbox.attr_uniform, \
+                            INPUT_NUMBER*HIDDEN_LAYER_NUMBER + HIDDEN_LAYER_NUMBER*OUTPUT_NUMBER)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 #評価関数の作成
 def evalOneMax(individual):
-    return sum(individual),
+    return trial(individual),
 toolbox.register("evaluate", evalOneMax)
 
 #交差、突然変異、選択用の関数
@@ -99,3 +103,5 @@ def main():
 
 if __name__=='__main__':
     main()
+    end = time.time()
+    print('所要時間:' ,end-start)
