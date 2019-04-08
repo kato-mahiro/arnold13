@@ -6,7 +6,7 @@ from field import Field
 
 PREY_NUM = 40
 
-def trial(weights_ih,weights_ho):
+def trial(weights_ih=None,weights_ho=None):
     field = Field()
     for i in range(PREY_NUM):
         field.add_prey()
@@ -19,4 +19,5 @@ def trial(weights_ih,weights_ho):
     return agent.total_reword
 
 if __name__=='__main__':
-    trial()
+    for i in range(100):
+        print(trial())
