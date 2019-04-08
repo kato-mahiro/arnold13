@@ -7,10 +7,14 @@ HIDDEN_LAYER_NUMBER = 16
 OUTPUT_NUMBER = 4
 
 class Neurons:
-    def __init__(self):
-        #create randomized np.array. range is (-2.0 ~ +2.0).
-        self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -2.0
-        self.weights_ho = 4.0 * np.random.random(( HIDDEN_LAYER_NUMBER, OUTPUT_NUMBER)) -2.0
+    def __init__(self,weights_ih,weights_ho):
+        if weights_ih == None and weights_ho == None:
+            #create randomized np.array. range is (-2.0 ~ +2.0).
+            self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -2.0
+            self.weights_ho = 4.0 * np.random.random(( HIDDEN_LAYER_NUMBER, OUTPUT_NUMBER)) -2.0
+        else:
+            self.weights_ih = weights_ih
+            self.weights_ho = weights_ho
     def set_weights(weights_ih,weights_ho):
         self.weights_ih = weights_ih
         self.weights_ho = weights_ho
