@@ -82,15 +82,20 @@ class Field:
         self.grid[self.preys[prey_no].y2][self.preys[prey_no].x2] = '_'
         del(self.preys[prey_no])
 
-    def give_input_vector(self, x_coordinate, y_coordinate):
+    def give_input_vector(self, agent_x, agent_y):
+        is_check_field_of_view = True 
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         input_vector=[]
         for y in range(VIEW_RANGE):
             for x in range(VIEW_RANGE):
-                adjusted_x = self.troidal_process(x_coordinate + x - VIEW_RANGE//2)
-                adjusted_y = self.troidal_process(y_coordinate + y - VIEW_RANGE//2)
+                adjusted_x = self.troidal_process(agent_x + x - VIEW_RANGE//2)
+                adjusted_y = self.troidal_process(agent_y + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
-
+        if is_check_field_of_view == True:
+            print("==field_of_view===")
+            for i in range(VIEW_RANGE):
+                print(' '.join(field_of_view[i]))
+            print("==================")
         "cut edge information"
         field_of_view[0] = field_of_view[0][2:-2]
         field_of_view[1] = field_of_view[1][1:-1]
@@ -111,13 +116,13 @@ class Field:
         action_no = int(action_no)
         if action_no == 0 or action_no == 1: #step_forward,jump_forward
             if agent.direction == 'up':
-                agent.y_coordinate -= (1 + action_no)
+                agent.y -= (1 + action_no)
             elif agent.direction == 'right':
-                agent.x_coordinate += (1 + action_no)
+                agent.x += (1 + action_no)
             elif agent.direction == 'down':
-                agent.y_coordinate += (1 + action_no)
+                agent.y += (1 + action_no)
             elif agent.direction == 'left':
-                agent.x_coordinate -= (1 + action_no)
+                agent.x -= (1 + action_no)
         if action_no == 2: #turn_right
             if agent.direction == 'up':
                 agent.direction = 'right'
@@ -136,13 +141,13 @@ class Field:
                 agent.direction = 'right'
             elif agent.direction == 'left':
                 agent.direction = 'down'
-        agent.x_coordinate = self.troidal_process(agent.x_coordinate)
-        agent.y_coordinate = self.troidal_process(agent.y_coordinate)
+        agent.x = self.troidal_process(agent.x)
+        agent.y = self.troidal_process(agent.y)
         if action_no == 0 or action_no == 1:
             for n in range(len(self.preys)):
-                if (self.preys[n].x == agent.x_coordinate and self.preys[n].y == agent.y_coordinate)\
+                if (self.preys[n].x == agent.x and self.preys[n].y == agent.y)\
                     or\
-                   (self.preys[n].x2 == agent.x_coordinate and self.preys[n].y2 == agent.y_coordinate):
+                   (self.preys[n].x2 == agent.x and self.preys[n].y2 == agent.y):
                     if (agent.direction == 'up' or agent.direction == 'down') and \
                                                 self.preys[n].direction == 'vertical' :
                         agent.total_reword += 1.0
