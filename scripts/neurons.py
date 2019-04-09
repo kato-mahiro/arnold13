@@ -4,7 +4,7 @@ import math
 from const import *
 
 class Neurons:
-    def __init__(self,weights_ih,weights_ho):
+    def __init__(self,weights_ih=None,weights_ho=None):
         if weights_ih == None and weights_ho == None:
             #create randomized np.array. range is (-2.0 ~ +2.0).
             self.weights_ih = 4.0 * np.random.random(( INPUT_NUMBER, HIDDEN_LAYER_NUMBER)) -2.0
