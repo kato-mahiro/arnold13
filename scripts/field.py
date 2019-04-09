@@ -2,10 +2,6 @@
 import random
 import pprint
 
-FIELD_RANGE = 20
-VIEW_RANGE = 7
-PREY_NUM = 40
-
 class Prey:
     def __init__(self,x,y,direction):
         self.x = x
