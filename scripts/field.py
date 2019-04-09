@@ -83,7 +83,7 @@ class Field:
         del(self.preys[prey_no])
 
     def give_input_vector(self, agent_x, agent_y):
-        is_check_field_of_view = True 
+        is_check_field_of_view = False
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         input_vector=[]
         for y in range(VIEW_RANGE):
