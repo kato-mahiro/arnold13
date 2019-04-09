@@ -1,6 +1,8 @@
 #coding:utf-8
 import random
 import pprint
+from const import *
+from baseline_agent import BaselineAgent
 
 class Prey:
     def __init__(self,x,y,direction):
@@ -16,6 +18,9 @@ class Field:
         self.grid = [ ['_' for i in range(FIELD_RANGE)] for j in range(FIELD_RANGE)]
         "note: grid[y][x]  --- x: horizontal, y: vertical. upper left corner is coordinate origin(0,0)"
         self.preys = []
+
+    def set_agent(self,agent):
+        self.agent = agent
 
     def troidal_process(self,n):
         "this corrects the coordinates to avoid out of range."
