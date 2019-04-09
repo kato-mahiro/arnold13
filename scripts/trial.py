@@ -12,13 +12,13 @@ def trial(gene):
     for i in range(PREY_NUM):
         field.add_prey()
     weights_ih,weights_ho = decoder(gene)
-    agent = BaselineAgent(10,10,weights_ih,weights_ho)
+    field.set_agent( BaselineAgent(10,10,weights_ih,weights_ho) )
 
     for i in range(400):
-        input_vector = field.give_input_vector(agent.x_coordinate,agent.y_coordinate)
-        action_no = agent.get_action(input_vector)
-        field.position_update(action_no,agent)
-    return agent.total_reword
+        input_vector = field.give_input_vector(field.agent.x_coordinate,field.agent.y_coordinate)
+        action_no = field.agent.get_action(input_vector)
+        field.position_update(action_no,field.agent)
+    return field.agent.total_reword
 
 if __name__=='__main__':
     for i in range(100):

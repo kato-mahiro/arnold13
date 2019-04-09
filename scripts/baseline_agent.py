@@ -2,7 +2,7 @@
 from neurons import Neurons
 
 class BaselineAgent:
-    def __init__(self,x,y,weights_ih=None,weights_ho=None):
+    def __init__(self,x=10,y=10,weights_ih=None,weights_ho=None):
         self.__neurons = Neurons(weights_ih,weights_ho)
         self.x_coordinate = x
         self.y_coordinate = y
