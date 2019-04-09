@@ -1,6 +1,7 @@
 #coding:utf-8
 import random
 import pprint
+import numpy as np
 from const import *
 from baseline_agent import BaselineAgent
 
@@ -91,6 +92,15 @@ class Field:
                 adjusted_x = self.troidal_process(agent_x + x - VIEW_RANGE//2)
                 adjusted_y = self.troidal_process(agent_y + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
+        # need to rotate acording to agent's direction
+        if self.agent.direction == 'right':
+            field_of_view = np.rot90(field_of_view).tolist()
+        elif self.agent.direction == 'down':
+            field_of_view = np.rot90(field_of_view).tolist()
+            field_of_view = np.rot90(field_of_view).tolist()
+        elif self.agent.direction == 'left':
+            field_of_view = np.rot90(field_of_view,k=-1).tolist()
+
         if is_check_field_of_view == True:
             print("==field_of_view===")
             for i in range(VIEW_RANGE):
@@ -140,7 +150,7 @@ class Field:
             elif agent.direction == 'down':
                 agent.direction = 'right'
             elif agent.direction == 'left':
-                agent.direction = 'down'
+               agent.direction = 'down'
         agent.x = self.troidal_process(agent.x)
         agent.y = self.troidal_process(agent.y)
         if action_no == 0 or action_no == 1:
