@@ -27,7 +27,7 @@ def TestManual():
     while(True):
         os.system('clear')
         draw(field)
-        input_vector = field.give_input_vector(field.agent.x,field.agent.y)
+        input_vector = field.give_input_vector()
         print(input_vector)
         c = input('action: ')
         if c == 'g':
@@ -38,7 +38,7 @@ def TestManual():
             action_no = 2
         elif c == 'l':
             action_no = 3
-        field.position_update(action_no,field.agent)
+        field.position_update(action_no)
 
 def TestAuto():
     field = Field()

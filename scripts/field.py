@@ -83,14 +83,14 @@ class Field:
         self.grid[self.preys[prey_no].y2][self.preys[prey_no].x2] = '_'
         del(self.preys[prey_no])
 
-    def give_input_vector(self, agent_x, agent_y):
+    def give_input_vector(self):
         is_check_field_of_view = False
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         input_vector=[]
         for y in range(VIEW_RANGE):
             for x in range(VIEW_RANGE):
-                adjusted_x = self.troidal_process(agent_x + x - VIEW_RANGE//2)
-                adjusted_y = self.troidal_process(agent_y + y - VIEW_RANGE//2)
+                adjusted_x = self.troidal_process(self.agent.x + x - VIEW_RANGE//2)
+                adjusted_y = self.troidal_process(self.agent.y + y - VIEW_RANGE//2)
                 field_of_view[y][x] = self.grid[adjusted_y][adjusted_x]
         # need to rotate acording to agent's direction
         if self.agent.direction == 'right':
@@ -122,50 +122,50 @@ class Field:
                 input_vector[i] = 1.0
         return input_vector
 
-    def position_update(self, action_no, agent):
+    def position_update(self, action_no):
         action_no = int(action_no)
         if action_no == 0 or action_no == 1: #step_forward,jump_forward
-            if agent.direction == 'up':
-                agent.y -= (1 + action_no)
-            elif agent.direction == 'right':
-                agent.x += (1 + action_no)
-            elif agent.direction == 'down':
-                agent.y += (1 + action_no)
-            elif agent.direction == 'left':
-                agent.x -= (1 + action_no)
+            if self.agent.direction == 'up':
+                self.agent.y -= (1 + action_no)
+            elif self.agent.direction == 'right':
+                self.agent.x += (1 + action_no)
+            elif self.agent.direction == 'down':
+                self.agent.y += (1 + action_no)
+            elif self.agent.direction == 'left':
+                self.agent.x -= (1 + action_no)
         if action_no == 2: #turn_right
-            if agent.direction == 'up':
-                agent.direction = 'right'
-            elif agent.direction == 'right':
-                agent.direction = 'down'
-            elif agent.direction == 'down':
-                agent.direction = 'left'
-            elif agent.direction == 'left':
-                agent.direction = 'up'
+            if self.agent.direction == 'up':
+                self.agent.direction = 'right'
+            elif self.agent.direction == 'right':
+                self.agent.direction = 'down'
+            elif self.agent.direction == 'down':
+                self.agent.direction = 'left'
+            elif self.agent.direction == 'left':
+                self.agent.direction = 'up'
         if action_no == 3: #turn_left
-            if agent.direction == 'up':
-                agent.direction = 'left'
-            elif agent.direction == 'right':
-                agent.direction = 'up'
-            elif agent.direction == 'down':
-                agent.direction = 'right'
-            elif agent.direction == 'left':
-               agent.direction = 'down'
-        agent.x = self.troidal_process(agent.x)
-        agent.y = self.troidal_process(agent.y)
+            if self.agent.direction == 'up':
+                self.agent.direction = 'left'
+            elif self.agent.direction == 'right':
+                self.agent.direction = 'up'
+            elif self.agent.direction == 'down':
+                self.agent.direction = 'right'
+            elif self.agent.direction == 'left':
+               self.agent.direction = 'down'
+        self.agent.x = self.troidal_process(self.agent.x)
+        self.agent.y = self.troidal_process(self.agent.y)
         if action_no == 0 or action_no == 1:
             for n in range(len(self.preys)):
-                if (self.preys[n].x == agent.x and self.preys[n].y == agent.y)\
+                if (self.preys[n].x == self.agent.x and self.preys[n].y == self.agent.y)\
                     or\
-                   (self.preys[n].x2 == agent.x and self.preys[n].y2 == agent.y):
-                    if (agent.direction == 'up' or agent.direction == 'down') and \
+                   (self.preys[n].x2 == self.agent.x and self.preys[n].y2 == self.agent.y):
+                    if (self.agent.direction == 'up' or self.agent.direction == 'down') and \
                                                 self.preys[n].direction == 'vertical' :
-                        agent.total_reword += 1.0
-                    elif (agent.direction == 'right' or agent.direction == 'left') and \
+                        self.agent.total_reword += 1.0
+                    elif (self.agent.direction == 'right' or self.agent.direction == 'left') and \
                                                 self.preys[n].direction == 'horizontal' :
-                        agent.total_reword += 1.0
+                        self.agent.total_reword += 1.0
                     else:
-                        agent.total_reword -= 1.0
+                        self.agent.total_reword -= 1.0
                     self.del_prey(n)
                     self.add_prey()
                     return
