@@ -1,6 +1,7 @@
 #coding:utf-8
 import random
 import pprint
+import numpy as np
 from const import *
 from baseline_agent import BaselineAgent
 
