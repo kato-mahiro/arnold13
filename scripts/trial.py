@@ -15,9 +15,7 @@ def trial(gene):
     field.set_agent( BaselineAgent(10,10,weights_ih,weights_ho) )
 
     for i in range(400):
-        input_vector = field.give_input_vector(field.agent.x,field.agent.y)
-        action_no = field.agent.get_action(input_vector)
-        field.position_update(action_no,field.agent)
+        field.one_step_action()
     return field.agent.total_reword
 
 if __name__=='__main__':

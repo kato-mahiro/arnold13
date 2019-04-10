@@ -170,6 +170,11 @@ class Field:
                     self.add_prey()
                     return
 
+    def one_step_action(self):
+        input_vector = self.give_input_vector()
+        action_no = self.agent.get_action(input_vector)
+        self.position_update(action_no)
+
 if __name__=='__main__':
     field = Field()
     for i in range(10):
