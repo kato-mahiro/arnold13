@@ -1,5 +1,6 @@
 #coding:utf-8
 from neurons import Neurons
+import random
 
 class BaselineAgent:
     def __init__(self,x=10,y=10,weights_ih=None,weights_ho=None):
@@ -11,3 +12,7 @@ class BaselineAgent:
     def get_action(self,input_vector):
         output_list = self.__neurons.get_output(input_vector)
         return output_list.index(max(output_list))
+
+class MainAgent(BaselineAgent):
+    def randomization(self):
+        rand 
