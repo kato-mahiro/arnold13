@@ -3,8 +3,8 @@ from neurons import Neurons
 import random
 
 class MainAgent:
-    def __init__(self,x=10,y=10,weights_ih=None,weights_ho=None):
-        self.__neurons = Neurons(weights_ih,weights_ho)
+    def __init__(self,x=10,y=10,weights_ih=None,weights_ho=None,weights_im=None,weights_mh=None,weights_em=None):
+        self.__neurons = Neurons(weights_ih,weights_ho,weights_im,weights_mh,weights_em)
         self.x = x
         self.y = y
         self.total_reword = 0
