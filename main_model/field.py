@@ -175,6 +175,40 @@ class Field:
         action_no = self.agent.get_action(input_vector)
         self.position_update(action_no)
 
+class ToyField(Field):
+    #don't update prey's position and reword less.
+    def position_update(self, action_no):
+        action_no = int(action_no)
+        if action_no == 0 or action_no == 1: #step_forward,jump_forward
+            if self.agent.direction == 'up':
+                self.agent.y -= (1 + action_no)
+            elif self.agent.direction == 'right':
+                self.agent.x += (1 + action_no)
+            elif self.agent.direction == 'down':
+                self.agent.y += (1 + action_no)
+            elif self.agent.direction == 'left':
+                self.agent.x -= (1 + action_no)
+        if action_no == 2: #turn_right
+            if self.agent.direction == 'up':
+                self.agent.direction = 'right'
+            elif self.agent.direction == 'right':
+                self.agent.direction = 'down'
+            elif self.agent.direction == 'down':
+                self.agent.direction = 'left'
+            elif self.agent.direction == 'left':
+                self.agent.direction = 'up'
+        if action_no == 3: #turn_left
+            if self.agent.direction == 'up':
+                self.agent.direction = 'left'
+            elif self.agent.direction == 'right':
+                self.agent.direction = 'up'
+            elif self.agent.direction == 'down':
+                self.agent.direction = 'right'
+            elif self.agent.direction == 'left':
+               self.agent.direction = 'down'
+        self.agent.x = self.troidal_process(self.agent.x)
+        self.agent.y = self.troidal_process(self.agent.y)
+
 if __name__=='__main__':
     field = Field()
     for i in range(10):
