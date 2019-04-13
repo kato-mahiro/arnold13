@@ -9,15 +9,14 @@ class MainAgent:
         self.y = y
         self.total_reword = 0
         self.direction = 'up' # -up,down,right,left
-        keys = [0,1,2,3]
-        actions = ['go','jump','turn_right','turn_left']
-        random.shuffle(actions)
-        self.randomized_table = dict(zip(keys ,actions))
+        self.randomized_id = [0,1,2,3]
+        random.shuffle(self.randomized_id)
     def get_action(self,input_vector):
-        output_list = self.__neurons.get_output(input_vector)
-        return output_list.index(max(output_list))
+        output_vector = self.__neurons.get_output(input_vector)
+        max_number = output_vector.index(max(output_vector))
+        return randomized_id[max_number]
 
 if __name__=='__main__':
     for i in range(10):
         main_agent = MainAgent()
-        print(main_agent.randomized_table)
+        print(main_agent.output_id)
