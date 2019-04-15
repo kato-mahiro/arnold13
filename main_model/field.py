@@ -3,7 +3,7 @@ import random
 import pprint
 import numpy as np
 from const import *
-from baseline_agent import BaselineAgent
+from main_agent import MainAgent
 
 class Prey:
     def __init__(self,x,y,direction):
@@ -84,7 +84,7 @@ class Field:
         del(self.preys[prey_no])
 
     def give_input_vector(self):
-        is_check_field_of_view = False
+        is_check_field_of_view = True
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         input_vector=[]
         for y in range(VIEW_RANGE):
