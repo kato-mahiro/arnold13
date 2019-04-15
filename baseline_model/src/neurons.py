@@ -1,7 +1,9 @@
 #coding:utf-8
-import numpy as np
 import math
-from .const import *
+
+import numpy as np
+
+from const import *
 
 class Neurons:
     def __init__(self,weights_ih=None,weights_ho=None):

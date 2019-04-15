@@ -1,10 +1,11 @@
 import random
+
 from deap import base
 from deap import creator
 from deap import tools
 
-from src.trial import trial
-from src.const import *
+from trial import trial
+from const import *
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)

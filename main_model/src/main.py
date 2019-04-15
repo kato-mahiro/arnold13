@@ -1,12 +1,11 @@
 import random
+
 from deap import base
 from deap import creator
 from deap import tools
 
-#from trial import trial
-#from const import *
-from src.trial import trial
-from src.const import *
+from trial import trial
+from const import *
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
@@ -14,8 +13,8 @@ creator.create("Individual", list, fitness=creator.FitnessMax)
 toolbox = base.Toolbox()
 #attr_uniform,
 toolbox.register("attr_uniform", random.uniform, -2, 2)
-toolbox.register("individual", tools.initRepeat, creator.Individual , toolbox.attr_uniform, \
-                                INPUT_NUMBER*HIDDEN_LAYER_NUMBER + HIDDEN_LAYER_NUMBER*OUTPUT_NUMBER)
+n = INPUT_NUMBER*HIDDEN_NUMBER + HIDDEN_NUMBER*OUTPUT_NUMBER + INPUT_NUMBER*MODURATORY_NUMBER + MODURATORY_NUMBER*HIDDEN_NUMBER + ECHO_NUMBER*MODURATORY_NUMBER
+toolbox.register("individual", tools.initRepeat, creator.Individual , toolbox.attr_uniform, n)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 #評価関数の作成

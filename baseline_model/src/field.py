@@ -1,9 +1,11 @@
 #coding:utf-8
 import random
 import pprint
+
 import numpy as np
-from .const import *
-from .baseline_agent import BaselineAgent
+
+from const import *
+from baseline_agent import BaselineAgent
 
 class Prey:
     def __init__(self,x,y,direction):

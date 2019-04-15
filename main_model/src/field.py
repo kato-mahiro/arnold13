@@ -2,8 +2,9 @@
 import random
 import pprint
 import numpy as np
-from .const import *
-from .main_agent import MainAgent
+
+from const import *
+from main_agent import MainAgent
 
 class Prey:
     def __init__(self,x,y,direction):
@@ -84,7 +85,7 @@ class Field:
         del(self.preys[prey_no])
 
     def give_input_vector(self):
-        is_check_field_of_view = True
+        is_check_field_of_view = False
         field_of_view = [ ['_' for i in range(VIEW_RANGE)] for j in range(VIEW_RANGE) ]
         input_vector=[]
         for y in range(VIEW_RANGE):
@@ -172,7 +173,7 @@ class Field:
 
     def one_step_action(self):
         input_vector = self.give_input_vector()
-        action_no = self.agent.get_action(input_vector)
+        action_no = self.agent.get_action_without_modification(input_vector)
         self.position_update(action_no)
 
 class ToyField(Field):
@@ -208,6 +209,14 @@ class ToyField(Field):
                self.agent.direction = 'down'
         self.agent.x = self.troidal_process(self.agent.x)
         self.agent.y = self.troidal_process(self.agent.y)
+
+    def one_step_action(self):
+        input_vector = self.give_input_vector()
+        action_no = self.agent.get_action_with_modification(input_vector)
+        self.position_update(action_no)
+
+    def hand_over_agent(self):
+        return self.agent
 
 if __name__=='__main__':
     field = Field()
