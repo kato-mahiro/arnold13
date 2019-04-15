@@ -1,5 +1,5 @@
 #coding:utf-8
-from neurons import Neurons
+from .neurons import Neurons
 import random
 
 class MainAgent:

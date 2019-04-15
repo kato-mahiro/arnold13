@@ -2,8 +2,8 @@
 import random
 import pprint
 import numpy as np
-from const import *
-from main_agent import MainAgent
+from .const import *
+from .main_agent import MainAgent
 
 class Prey:
     def __init__(self,x,y,direction):

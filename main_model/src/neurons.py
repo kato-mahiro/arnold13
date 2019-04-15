@@ -2,7 +2,7 @@
 import sys
 import numpy as np
 import math
-from const import *
+from .const import *
 
 class Neurons:
     def __init__(self,weights_ih=None,weights_ho=None,weights_im=None,weights_mh=None,weights_em=None):

@@ -5,8 +5,8 @@ a trial return result value(total reword which agent have got)
 from baseline_agent import BaselineAgent
 from field import Field
 
-from decoder import decoder
-from const import *
+from .decoder import decoder
+from .const import *
 
 def trial(gene):
     #learning_process(don't use reword)
