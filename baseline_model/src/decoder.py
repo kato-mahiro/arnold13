@@ -1,4 +1,4 @@
-from const import *
+from .const import *
 
 def decoder(gene):
     gene_index=0

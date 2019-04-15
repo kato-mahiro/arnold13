@@ -1,7 +1,7 @@
 #coding:utf-8
 import numpy as np
 import math
-from const import *
+from .const import *
 
 class Neurons:
     def __init__(self,weights_ih=None,weights_ho=None):

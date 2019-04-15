@@ -1,5 +1,5 @@
 #coding:utf-8
-from neurons import Neurons
+from .neurons import Neurons
 
 class BaselineAgent:
     def __init__(self,x=10,y=10,weights_ih=None,weights_ho=None):
