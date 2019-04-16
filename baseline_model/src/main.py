@@ -31,7 +31,7 @@ def main():
     random.seed(64)
     # 初期の個体群を生成
     pop = toolbox.population(n=90)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 1000 # 交差確率、突然変異確率、進化計算のループ回数
+    CXPB, MUTPB, NGEN = 0.5, 0.2, 10000 # 交差確率、突然変異確率、進化計算のループ回数
 
     print("Start of evolution")
 
