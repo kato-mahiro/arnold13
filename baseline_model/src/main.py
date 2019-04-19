@@ -22,16 +22,27 @@ def evalOneMax(individual):
     return trial(individual),
 toolbox.register("evaluate", evalOneMax)
 
+#自前の突然変異関数
+def myMutation(individual,indpb):
+    for i in range(len(individual)):
+        if random.random() < indpb:
+            if random.random() < 0.75:
+                individual[i] += random.uniform(-0.5,0.5)
+            else:
+                individual[i] = 0.0
+    print("after_mutation:",individual)
+    n = input()
+
 #交差、突然変異、選択用の関数
 toolbox.register("mate", tools.cxTwoPoints)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.001)
+toolbox.register("mutate", myMutation, indpb=0.0035)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
     random.seed(64)
     # 初期の個体群を生成
     pop = toolbox.population(n=90)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 10000 # 交差確率、突然変異確率、進化計算のループ回数
+    CXPB, MUTPB, NGEN = 0.0, 0.01, 10000 # 交差確率、突然変異確率、進化計算のループ回数
 
     print("Start of evolution")
 
