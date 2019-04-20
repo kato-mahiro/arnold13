@@ -39,7 +39,6 @@ def myMutation(individual,indpb):
 
 #交差、突然変異、選択用の関数
 toolbox.register("mutate", myMutation, indpb=0.0035)
-toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
     random.seed(64)
@@ -61,13 +60,13 @@ def main():
         print("-- Generation %i --" % g)
 
         # 次世代の個体群を選択
-        offspring = toolbox.select(pop, len(pop))
+        offspring = pop
         # 個体群のクローンを生成
         offspring = list(map(toolbox.clone, offspring))
         # クローンを適応度順にソート(降順)
         offspring = sorted(offspring,key=attrgetter('fitness.values'),reverse=True)
 
-        parent_pool = toolbox.select(offspring[0:40], len(offspring[0:40]))
+        parent_pool = offspring[0:40]
         parent_pool= list(map(toolbox.clone, parent_pool))
         i = 0
         for mutant in parent_pool:
