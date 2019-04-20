@@ -67,9 +67,6 @@ def main():
         # クローンを適応度順にソート(降順)
         offspring = sorted(offspring,key=attrgetter('fitness.values'),reverse=True)
 
-        elite = toolbox.select(offspring[0:10], len(offspring[0:10]))
-        elite= list(map(toolbox.clone, elite))
-
         parent_pool = toolbox.select(offspring[0:40], len(offspring[0:40]))
         parent_pool= list(map(toolbox.clone, parent_pool))
         i = 0
