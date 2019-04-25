@@ -55,7 +55,6 @@ class Neurons:
                 output_of_output_neurons[i] = 1.0
             else:
                 output_of_output_neurons[i] = 0.0
-        nxt = input()
 
         for h in range(HIDDEN_NUMBER):
             for o in range(OUTPUT_NUMBER):
