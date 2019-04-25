@@ -13,7 +13,7 @@ creator.create("Individual", list, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 #attr_uniform,
-toolbox.register("attr_uniform", random.uniform, -2, 2)
+toolbox.register("attr_uniform", random.uniform, -0.01, 0.01)
 n = INPUT_NUMBER*HIDDEN_NUMBER + HIDDEN_NUMBER*OUTPUT_NUMBER + INPUT_NUMBER*MODURATORY_NUMBER + MODURATORY_NUMBER*HIDDEN_NUMBER + ECHO_NUMBER*MODURATORY_NUMBER
 toolbox.register("individual", tools.initRepeat, creator.Individual , toolbox.attr_uniform, n)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
@@ -28,7 +28,7 @@ def myMutation(individual,indpb):
     for i in range(len(individual)):
         if random.random() < indpb:
             if random.random() < 0.75:
-                individual[i] += random.uniform(-0.5,0.5)
+                individual[i] += random.uniform(-0.0025,0.0025)
                 if individual[i] > 2.0:
                     individual[i] = 2.0
                 elif individual[i] < -2.0:
