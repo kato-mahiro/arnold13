@@ -49,6 +49,14 @@ class Neurons:
         output_of_output_neurons = np.dot(output_of_hidden_neurons, self.weights_ho)
         output_of_output_neurons = [math.tanh(i) for i in output_of_output_neurons.tolist()]
 
+        #mutual inhibition.
+        for i in range(OUTPUT_NUMBER):
+            if i == output_of_output_neurons.index(max(output_of_output_neurons)):
+                output_of_output_neurons[i] = 1.0
+            else:
+                output_of_output_neurons[i] = 0.0
+        nxt = input()
+
         for h in range(HIDDEN_NUMBER):
             for o in range(OUTPUT_NUMBER):
                 delta_w = 0.01 * output_of_moduratory_neurons[h] * output_of_hidden_neurons[h] * output_of_output_neurons[o]
