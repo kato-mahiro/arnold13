@@ -1,4 +1,5 @@
 import random
+from operator import attrgetter
 
 from deap import base
 from deap import creator
@@ -22,16 +23,28 @@ def evalOneMax(individual):
     return trial(individual),
 toolbox.register("evaluate", evalOneMax)
 
+#自前の突然変異関数
+def myMutation(individual,indpb):
+    for i in range(len(individual)):
+        if random.random() < indpb:
+            if random.random() < 0.75:
+                individual[i] += random.uniform(-0.5,0.5)
+                if individual[i] > 2.0:
+                    individual[i] = 2.0
+                elif individual[i] < -2.0:
+                    individual[i] = -2.0
+            else:
+                individual[i] = 0.0
+    return individual,
+
 #交差、突然変異、選択用の関数
-toolbox.register("mate", tools.cxTwoPoints)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.001)
-toolbox.register("select", tools.selTournament, tournsize=3)
+toolbox.register("mutate", myMutation, indpb=0.0035)
 
 def main():
     random.seed(64)
     # 初期の個体群を生成
     pop = toolbox.population(n=90)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 10000 # 交差確率、突然変異確率、進化計算のループ回数
+    MUTPB, NGEN = 1.0, 10000 # 交差確率、突然変異確率、進化計算のループ回数
 
     print("Start of evolution")
 
@@ -47,28 +60,29 @@ def main():
         print("-- Generation %i --" % g)
 
         # 次世代の個体群を選択
-        offspring = toolbox.select(pop, len(pop))
+        offspring = pop
         # 個体群のクローンを生成
         offspring = list(map(toolbox.clone, offspring))
+        # クローンを適応度順にソート(降順)
+        offspring = sorted(offspring,key=attrgetter('fitness.values'),reverse=True)
 
-        # 選択した個体群に交差と突然変異を適応する
-        # 偶数番目と奇数番目の個体を取り出して交差
-        for child1, child2 in zip(offspring[::2], offspring[1::2]):
-            if random.random() < CXPB:
-                toolbox.mate(child1, child2)
-                del child1.fitness.values
-                del child2.fitness.values
+        parent_pool = offspring[0:40]
+        parent_pool= list(map(toolbox.clone, parent_pool))
+        i = 0
+        for mutant in parent_pool:
+            toolbox.mutate(mutant)
+            del mutant.fitness.values
+            offspring[i+10] = mutant
+            offspring[-i] = mutant
+            i += 1
 
-        for mutant in offspring:
-            if random.random() < MUTPB:
-                toolbox.mutate(mutant)
-                del mutant.fitness.values
 
         # 適合度が計算されていない個体を集めて適合度を計算
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
         fitnesses = map(toolbox.evaluate, invalid_ind)
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
+
 
         print("  Evaluated %i individuals" % len(invalid_ind))
 
